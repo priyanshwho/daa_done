@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom'
 type NavigationProps = {
   isDarkMode: boolean
   toggleTheme: () => void
+  
 }
+
 
 const getRouteClass = (isDarkMode: boolean, isActive: boolean) => {
   const baseClass = 'text-sm font-medium transition-colors duration-300'
