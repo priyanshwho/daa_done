@@ -273,7 +273,7 @@ const ArrowUpRightIcon = () => (
 
 /* ── Component ── */
 
-const DashboardPage = ({ isDarkMode }: DashboardProps) => {
+const DashboardPage = ({ isDarkMode: _isDarkMode }: DashboardProps) => {
 	const [rows, setRows] = useState<DatasetRow[]>([])
 	const [isDatasetLoading, setIsDatasetLoading] = useState(true)
 	const [datasetError, setDatasetError] = useState<string | null>(null)
