@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #0f0f0f;
+  background: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+.app-root {
+  min-height: 100vh;
+  transition: background-color 700ms ease, color 700ms ease;
+}
+
+.theme-dark {
+  background: #050505;
+  color: #ffffff;
+}
+
+.theme-light {
+  background: #ffffff;
+  color: #0f0f0f;
+}
+
+::selection {
+  background: #e85d35;
+  color: #fff4f1;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

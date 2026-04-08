@@ -1,0 +1,279 @@
+.interaction-page {
+  display: grid;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6.4rem 1rem 2rem;
+}
+
+.interaction-copy {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0;
+}
+
+.interaction-kicker {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3f5863;
+  font-size: 0.8rem;
+}
+
+.interaction-title {
+  margin: 0;
+  line-height: 1.06;
+  font-size: clamp(1.7rem, 3.8vw, 3rem);
+}
+
+.interaction-description {
+  margin: 0;
+  max-width: 64ch;
+  color: #344054;
+  line-height: 1.55;
+}
+
+.interaction-canvas {
+  position: relative;
+  min-height: 75vh;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  background:
+    radial-gradient(circle at 22% 20%, rgba(86, 177, 156, 0.14), transparent 28%),
+    radial-gradient(circle at 80% 72%, rgba(103, 127, 167, 0.16), transparent 32%),
+    #f7f7f6;
+  overflow: hidden;
+}
+
+.interaction-canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.interaction-canvas.is-loading {
+  pointer-events: none;
+}
+
+.canvas-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 40;
+  width: 82px;
+  height: 2px;
+  margin-left: -41px;
+  background: rgba(15, 23, 42, 0.55);
+  transform-origin: 0% 50%;
+  animation: canvas-loading 1.2s ease-in-out infinite alternate;
+}
+
+.shirts-container {
+  position: relative;
+  min-height: 75vh;
+  width: 100%;
+  isolation: isolate;
+}
+
+.rat-center {
+  position: absolute;
+  z-index: 10;
+  top: 53%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(24vw, 320px);
+  min-width: 180px;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.shirt {
+  --drag-x: 0px;
+  --drag-y: 0px;
+  --tilt-y: 0deg;
+  --tilt-x: 0deg;
+  --scale: 1;
+  position: absolute;
+  z-index: 20;
+  width: clamp(120px, 16vw, 230px);
+  height: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  will-change: transform;
+  transform:
+    translate(var(--drag-x), var(--drag-y))
+    perspective(500px)
+    rotateY(var(--tilt-y))
+    rotateX(var(--tilt-x))
+    scale(var(--scale));
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.shirt.is-active {
+  cursor: grabbing;
+  z-index: 30;
+}
+
+.shirt.grabbed {
+  --scale: 1.03;
+  filter: drop-shadow(0 7px 14px rgba(0, 0, 0, 0.18));
+}
+
+.shirt.dragging-right {
+  --tilt-y: -13deg;
+  --tilt-x: 4deg;
+  --scale: 0.97;
+  filter: drop-shadow(6px 7px 16px rgba(0, 0, 0, 0.25));
+}
+
+.shirt.dragging-left {
+  --tilt-y: 13deg;
+  --tilt-x: 4deg;
+  --scale: 0.97;
+  filter: drop-shadow(-6px 7px 16px rgba(0, 0, 0, 0.25));
+}
+
+.top-left {
+  top: 18%;
+  left: 7%;
+}
+
+.middle-right {
+  top: 45%;
+  right: 7%;
+}
+
+.bottom-left {
+  bottom: 10%;
+  left: 10%;
+}
+
+#info-tooltip {
+  position: absolute;
+  z-index: 30;
+  top: 24%;
+  left: 56%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.78);
+  font-weight: 700;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: help;
+}
+
+#info-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 9px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  border-radius: 0.4rem;
+  background: rgba(15, 23, 42, 0.9);
+  color: #f8fafc;
+  font-size: 0.74rem;
+  padding: 0.35rem 0.55rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+#info-tooltip:hover::after,
+#info-tooltip.tooltip-visible::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes canvas-loading {
+  0% {
+    transform: scaleX(0);
+    transform-origin: 0% 50%;
+  }
+
+  50% {
+    transform: scaleX(1);
+    transform-origin: 0% 50%;
+  }
+
+  50.1% {
+    transform: scaleX(1);
+    transform-origin: 100% 50%;
+  }
+
+  100% {
+    transform: scaleX(0);
+    transform-origin: 100% 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .interaction-page {
+    padding-top: 6rem;
+  }
+
+  .interaction-canvas,
+  .shirts-container {
+    min-height: 68vh;
+  }
+
+  .rat-center {
+    width: min(56vw, 320px);
+    top: 50%;
+  }
+
+  .shirt {
+    width: clamp(108px, 28vw, 190px);
+  }
+
+  .top-left {
+    top: 17%;
+    left: 4%;
+  }
+
+  .middle-right {
+    top: 52%;
+    right: 4%;
+  }
+
+  .bottom-left {
+    bottom: 9%;
+    left: 5%;
+  }
+
+  #info-tooltip {
+    top: 22%;
+    left: 67%;
+  }
+}
+
+@media (max-width: 540px) {
+  .interaction-canvas,
+  .shirts-container {
+    min-height: 62vh;
+  }
+
+  .shirt {
+    width: clamp(96px, 30vw, 150px);
+  }
+
+  .middle-right {
+    top: 58%;
+  }
+
+  #info-tooltip {
+    left: 72%;
+  }
+}
